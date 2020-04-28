@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  padding: 25px;
+  background-color:aqua;
+  font-size: 25px;
+}
+*{
+  box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+.button {
+  background-color:#7FFF00;
+  font-size:16px;
+  display:inline-block; 
+}
+.btn{
+   background-color:white;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+#leftBox,
+        #rightBox {
+                    top:90px;
+                    width: 60%;
+                    border: 3px solid green;
+                    padding: 30px;
+                    
+
+                
+        }
+        
+                   
+        .luser,
+        .ruser {
+            display: block;
+        }
+</style>
+</head>
+<body>
+<center><font color="red" style="sans-serif"><u>The Best App To Increase Your Productivity</center></u></font>
+<p align="right"><button onclick="myFunction()" class="button">Dark mode</button></p>
+<div id="leftBox" ></div>
+    <button id="movr"class="btn">Assign &gt; </button>
+    <button id="movl" class="btn"> &lt; Revoke</button>
+    <div id="rightBox" ></div>
+
+<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+
+var lbox = document.querySelector("#leftBox");
+        var rbox = document.querySelector("#rightBox");
+        var ml = document.querySelector("#movl");
+        var mr = document.querySelector("#movr");
+        var selected_id_left = null;
+
+        var larr = [
+            {
+                id: 1,
+                name: "Left Name",
+                image: "https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png"
+            },
+            {
+                id: 2,
+                name: "Left Name 2",
+                image: "https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png"
+            }
+        ];
+
+        var rarr = [
+            {
+                id: 2,
+                name: "Right Name",
+                image: "https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png"
+            }
+        ];
+
+        var initialLboxLength = larr.length;
+        var initialRboxLength = rarr.length;
+        function clearBoxes() {
+            var lBox_length = document.getElementsByClassName("luser").length;
+            var rBox_length = document.getElementsByClassName("ruser").length;
+
+            for(var i = 0; i < lBox_length; i++){
+                console.log(lbox.childNodes[0]);
+                lbox.removeChild(lbox.childNodes[0]);
+            }
+
+            for(var i = 0; i < rBox_length; i++){
+                rbox.removeChild(rbox.childNodes[0]);
+            }
+        }
+
+        function placeUsers() {
+            for (var i = 0; i < larr.length; i++) {
+                var user_element = document.createElement("div");
+                user_element.className = 'luser'
+                user_element.id = larr[i].id;
+                user_element.textContent = larr[i].name;
+                lbox.appendChild(user_element);
+            }
+
+            var left_users = document.querySelectorAll(".luser");
+            left_users.forEach(ele => {
+                ele.addEventListener('click', () => {
+                    ele.style.backgroundColor = 'blue';
+                    ele.style.color = 'white';
+                    selected_id_left = ele.id;
+                    (selected_id_left == null) ? mr.disabled = true : mr.disabled = false;
+                });
+            });
+
+            (selected_id_left == null) ? mr.disabled = true : mr.disabled = false;
+
+            for (var i = 0; i < rarr.length; i++) {
+                var user_element = document.createElement("div");
+                user_element.className = 'ruser'
+                user_element.id = rarr[i].id;
+                user_element.textContent = rarr[i].name;
+                rbox.appendChild(user_element);
+            }
+        }
+
+        function deleteFromLarr(position){
+            larr.splice(position, 1);
+        }
+
+        function moveRight() {
+            for (var i = 0; i < larr.length; i++) {
+                if (larr[i].id == selected_id_left) {
+                    rarr.push(larr[i]);
+                    deleteFromLarr(i);
+                }
+            }
+        }
+
+        mr.addEventListener('click', () => {
+            moveRight();
+            clearBoxes();
+            placeUsers();
+        });
+        
+        placeUsers();
+    </script>
+     
+    <script type="text/javascript">
+        
+        var rarr = [
+            {
+                id: 1,
+                name: "Right Name",
+                image: "https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png"
+            },
+            {
+                id: 2,
+                name: "Right Name 2",
+                image: "https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png"
+            }
+        ];
+
+        var larr = [
+            {
+                id: 1,
+                name: "Left Name",
+                image: "https://www.acspri.org.au/sites/acspri.org.au/files/profile-placeholder.png"
+            }
+        ];
+
+        var initialLboxLength = larr.length;
+        var initialRboxLength = rarr.length;
+        function clearBox() {
+            var lBox_length = document.getElementsByClassName("luser").length;
+            var rBox_length = document.getElementsByClassName("ruser").length;
+
+            for(var i = 0; i < rBox_length; i++){
+                console.log(rbox.childNodes[0]);
+                rbox.removeChild(rbox.childNodes[0]);
+           
+            
+            }
+            for(var i = 0; i < lBox_length; i++){
+                lbox.removeChild(lbox.childNodes[0]);
+            
+            }
+        }
+
+        function placeUser() {
+            for (var i = 0; i < rarr.length; i++) {
+                var user_element = document.createElement("div");
+                user_element.className = 'ruser'
+                user_element.id = rarr[i].id;
+                user_element.textContent = rarr[i].name;
+                rbox.appendChild(user_element);
+            }
+
+            var right_users = document.querySelectorAll(".ruser");
+            right_users.forEach(ele => {
+                ele.addEventListener('click', () => {
+                    ele.style.backgroundColor = 'blue';
+                    ele.style.color = 'white';
+                    selected_id_right = ele.id;
+                    (selected_id_right == null) ? mr.disabled = true : mr.disabled = false;
+                });
+            });
+
+            (selected_id_right == null) ? mr.disabled = true : mr.disabled = false;
+
+            for (var i = 0; i < larr.length; i++) {
+                var user_element = document.createElement("div");
+                user_element.className = 'luser'
+                user_element.id = larr[i].id;
+                user_element.textContent = larr[i].name;
+                lbox.appendChild(user_element);
+            }
+        }
+
+        function deleteFromrarr(position){
+            rarr.splice(position, 1);
+        }
+
+        function moveLeft() {
+            for (var i = 0; i < rarr.length; i++) {
+                if (rarr[i].id == selected_id_right) {
+                    larr.push(rarr[i]);
+                    deleteFromrarr(i);
+                }
+            }
+        }
+
+        ml.addEventListener('click', () => {
+            moveLeft();
+            clearBox();
+            placeUser();
+        });
+        
+        placeUser();
+</script>
+
+
+</body>
+</html>
